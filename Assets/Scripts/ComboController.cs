@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FistController : MonoBehaviour {
+public class ComboController : MonoBehaviour {
 
-	public PlayerController player;
+	protected PlayerController player;
 	public float swingSpeed = 2 * Mathf.PI; // Theta Per Second
 
 	//

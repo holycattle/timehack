@@ -2,52 +2,60 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
+	//
+	public float rotationSpeed = 180;
 	public float moveSpeed = 6;
-	public FistController fist;
 
 	//
 	public Rigidbody playerBody;
 	public Rigidbody fistBody;
 
-	//
-	protected bool isForward = true;
+	// Movement
+	protected float yVel;
+	protected bool isGrounded = true;
+	protected int direction = 0;
 
 	void Awake() {
-		fist = GetComponentInChildren<FistController>();
-//		playerBody = transform.FindChild("Mesh").rigidbody;
-//		fistBody = transform.FindChild("Fist").rigidbody;
-//
-//		if (playerBody == null)
-//			Debug.LogWarning("NULL");
-//		if (fist.GetCollider() == null)
-//			Debug.LogWarning("FNULL");
-//		Physics.IgnoreCollision(playerBody.gameObject.collider, fist.GetCollider());
 	}
 
 	void Start() {
+	}
+
+	void FixedUpdate() {
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
 	}
 
 	void Update() {
 		// Movement
 		float xAxis = Input.GetAxis("Horizontal");
 		float zAxis = Input.GetAxis("Vertical");
-		transform.Translate(new Vector3(xAxis * moveSpeed * Time.deltaTime, 0, zAxis * moveSpeed * Time.deltaTime), Space.World);
+		transform.Translate(Vector3.forward * zAxis * moveSpeed * Time.deltaTime, Space.Self);
 
+		// Rotation
 		Vector3 rot = transform.rotation.eulerAngles;
-		if (xAxis > 0) {
-			rot.y = 0;
-			isForward = true;
-		} else if (xAxis < 0) {
-			rot.y = 180;
-			isForward = false;
-		}
-
+		rot.y += xAxis * rotationSpeed * Time.deltaTime;
 		transform.rotation = Quaternion.Euler(rot);
 
-		// Attack
-		if (Input.GetKeyDown(KeyCode.Mouse0)) {
-			fist.Swing();
+		// Jump
+		/*
+		if (!isGrounded) {
+			yVel += Constants.GRAVITY * Time.deltaTime;
+			transform.Translate(new Vector3(0, yVel * Time.deltaTime, 0), Space.World);
+
+			if (transform.position.y < 0) {
+				Vector3 v = transform.position;
+				v.y = 0;
+				transform.position = v;
+				isGrounded = true;
+			}
 		}
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			if (isGrounded) {
+				yVel = 5;
+				isGrounded = false;
+			}
+		}
+		*/
 	}
 }
