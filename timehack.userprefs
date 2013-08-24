@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="43" Column="35" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="50" Column="3" />
+      <File FileName="Assets\Scripts\CountdownTimer.cs" Line="6" Column="32" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="44" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
