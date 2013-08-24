@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour {
 	protected float yVel;
 	protected bool isGrounded = true;
 	protected int direction = 0;
+	
+	private static PlayerController playerControllerInstance;
 
 	void Awake() {
+		playerControllerInstance = this;
 	}
 
 	void Start() {
@@ -25,7 +28,11 @@ public class PlayerController : MonoBehaviour {
 		rigidbody.velocity = Vector3.zero;
 		rigidbody.angularVelocity = Vector3.zero;
 	}
-
+	
+	public static PlayerController getPlayerControllerInstance() {
+		return playerControllerInstance;
+	}
+	
 	void Update() {
 		// Movement
 		float xAxis = Input.GetAxis("Horizontal");
