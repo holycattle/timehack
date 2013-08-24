@@ -7,6 +7,7 @@ public class MobController : MonoBehaviour {
 	private PlayerController player;
 	// Use this for initialization
 	void Start () {
+		//TODO: initialize random stats here
 		moveSpeed = 1f;
 		player = PlayerController.getPlayerControllerInstance();
 	}

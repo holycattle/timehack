@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	void Update() {
 		// Movement
 		float xAxis = Input.GetAxis("Horizontal");
+		//z-axis is y-axis
 		float zAxis = Input.GetAxis("Vertical");
 		transform.Translate(Vector3.forward * zAxis * moveSpeed * Time.deltaTime, Space.Self);
 
