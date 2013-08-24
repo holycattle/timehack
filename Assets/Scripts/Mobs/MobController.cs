@@ -14,7 +14,7 @@ public class MobController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		transform.LookAt(player.transform.position);
+		transform.LookAt(player.parentObject.transform.position);
 		transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
 		
 	}
