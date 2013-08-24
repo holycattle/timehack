@@ -7,8 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed = 6;
 
 	//
-	public Rigidbody playerBody;
-	public Rigidbody fistBody;
+	public GameObject parentObject;
 
 	// Movement
 	protected float yVel;
@@ -22,11 +21,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start() {
-	}
-
-	void FixedUpdate() {
-		rigidbody.velocity = Vector3.zero;
-		rigidbody.angularVelocity = Vector3.zero;
+		parentObject = transform.root.gameObject;
 	}
 	
 	public static PlayerController getPlayerControllerInstance() {
@@ -38,32 +33,37 @@ public class PlayerController : MonoBehaviour {
 		float xAxis = Input.GetAxis("Horizontal");
 		//z-axis is y-axis
 		float zAxis = Input.GetAxis("Vertical");
-		transform.Translate(Vector3.forward * zAxis * moveSpeed * Time.deltaTime, Space.Self);
+		parentObject.transform.Translate(Vector3.forward * zAxis * moveSpeed * Time.deltaTime, Space.Self);
 
 		// Rotation
-		Vector3 rot = transform.rotation.eulerAngles;
+		Vector3 rot = parentObject.transform.rotation.eulerAngles;
 		rot.y += xAxis * rotationSpeed * Time.deltaTime;
-		transform.rotation = Quaternion.Euler(rot);
+		parentObject.transform.rotation = Quaternion.Euler(rot);
 
-		// Jump
+
 		/*
-		if (!isGrounded) {
-			yVel += Constants.GRAVITY * Time.deltaTime;
-			transform.Translate(new Vector3(0, yVel * Time.deltaTime, 0), Space.World);
+		 * Controls
+		 */
+		// Possession
+		if (Input.GetMouseButton(0)) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+				ControllableEntity c = hit.transform.root.GetComponentInChildren<ControllableEntity>();
+				if (c != null)
+					SetControllingObject(c.gameObject);
+			}
+		}
+	}
 
-			if (transform.position.y < 0) {
-				Vector3 v = transform.position;
-				v.y = 0;
-				transform.position = v;
-				isGrounded = true;
-			}
-		}
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			if (isGrounded) {
-				yVel = 5;
-				isGrounded = false;
-			}
-		}
-		*/
+	public void SetControllingObject(GameObject g) {
+		Vector3 offset = transform.localPosition;
+		Quaternion offrot = transform.localRotation;
+
+		transform.parent = g.transform;
+		transform.localPosition = offset;
+		transform.localRotation = offrot;
+
+		parentObject = g;
 	}
 }
