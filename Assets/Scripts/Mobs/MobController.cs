@@ -16,5 +16,6 @@ public class MobController : MonoBehaviour {
 	void Update() {
 		transform.LookAt(player.transform.position);
 		transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
+		
 	}
 }
