@@ -24,6 +24,7 @@ public class Chunk : MonoBehaviour {
 			g.transform.localScale = scale;
 			g.transform.position = new Vector3(g.transform.position.x, scale.y / 2f, g.transform.position.z);
 			g.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+			g.transform.parent = transform;
 		}
 	}
 }
