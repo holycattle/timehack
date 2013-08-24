@@ -57,5 +57,7 @@ public class PlayerController : MonoBehaviour {
 		transform.localRotation = offrot;
 
 		parentObject = g;
+
+		GameController.GetInstance.StartTimer();
 	}
 }
