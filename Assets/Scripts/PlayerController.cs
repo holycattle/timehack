@@ -13,17 +13,25 @@ public class PlayerController : MonoBehaviour {
 	protected float yVel;
 	protected bool isGrounded = true;
 	protected int direction = 0;
+	
+	private static PlayerController playerControllerInstance;
 
 	void Awake() {
+		playerControllerInstance = this;
 	}
 
 	void Start() {
 		parentObject = transform.root.gameObject;
 	}
-
+	
+	public static PlayerController getPlayerControllerInstance() {
+		return playerControllerInstance;
+	}
+	
 	void Update() {
 		// Movement
 		float xAxis = Input.GetAxis("Horizontal");
+		//z-axis is y-axis
 		float zAxis = Input.GetAxis("Vertical");
 		parentObject.transform.Translate(Vector3.forward * zAxis * moveSpeed * Time.deltaTime, Space.Self);
 
