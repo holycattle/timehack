@@ -16,15 +16,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start() {
+		timeStart = Time.time;
 	}
 
 	void Update() {
-		if (timeStart == -1) {
-			if (Input.GetKeyDown(KeyCode.P))
-				StartTimer();
-			return;
-		}
-
 		float timePassed = Time.time - timeStart;
 		int currentNumber = (int)Mathf.Min(Mathf.FloorToInt((TEN + 1) - timePassed), TEN);
 		timerMaterial.mainTextureOffset = new Vector2((TEN - currentNumber) / TEN, timerMaterial.mainTextureOffset.y);

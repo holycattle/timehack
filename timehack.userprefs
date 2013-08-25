@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Mobs\MobController.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="50" Column="3" />
-      <File FileName="Assets\Scripts\CountdownTimer.cs" Line="6" Column="32" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="44" Column="3" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="64" Column="3" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="19" Column="24" />
+      <File FileName="Assets\Scripts\Mobs\MobSpawnController.cs" Line="37" Column="45" />
+      <File FileName="Assets\Scripts\Mobs\MobController.cs" Line="46" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

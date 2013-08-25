@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Start() {
 		parentObject = transform.root.gameObject;
-		mobController.isEnabled = false;
+		mobController.isAIEnabled = false;
 	}
 	
 	public static PlayerController getPlayerControllerInstance() {
@@ -52,13 +52,18 @@ public class PlayerController : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
 				ControllableEntity c = hit.transform.root.GetComponentInChildren<ControllableEntity>();
-				if (c != null)
+				if (c != null && c != transform.root.GetComponent<ControllableEntity>())
 					SetControllingObject(c.gameObject);
 			}
 		}
 	}
 
 	public void SetControllingObject(GameObject g) {
+		// Set Fuse of Old Mob
+		MobController mob = g.GetComponentInChildren<MobController>();
+		
+
+		// Swap Bodies
 		Vector3 offset = transform.localPosition;
 		Quaternion offrot = transform.localRotation;
 
@@ -68,10 +73,11 @@ public class PlayerController : MonoBehaviour {
 
 		parentObject = g;
 
-		mobController.isEnabled = true;
+		mobController.isAIEnabled = true;
 		mobController = transform.root.GetComponentInChildren<MobController>();
-		mobController.isEnabled = false;
+		mobController.isAIEnabled = false;
 
+		// Resets Explosion Timer
 		GameController.GetInstance.StartTimer();
 	}
 }
