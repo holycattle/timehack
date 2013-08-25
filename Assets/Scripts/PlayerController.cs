@@ -6,22 +6,24 @@ public class PlayerController : MonoBehaviour {
 	public float rotationSpeed = 180;
 	public float moveSpeed = 6;
 
-	//
+	// Controllability
 	public GameObject parentObject;
+	public MobController mobController;
 
 	// Movement
 	protected float yVel;
 	protected bool isGrounded = true;
 	protected int direction = 0;
-	
 	private static PlayerController playerControllerInstance;
 
 	void Awake() {
 		playerControllerInstance = this;
+		mobController = transform.root.GetComponentInChildren<MobController>();
 	}
 
 	void Start() {
 		parentObject = transform.root.gameObject;
+		mobController.isEnabled = false;
 	}
 	
 	public static PlayerController getPlayerControllerInstance() {
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour {
 		transform.localRotation = offrot;
 
 		parentObject = g;
+
+		mobController.isEnabled = true;
+		mobController = transform.root.GetComponentInChildren<MobController>();
+		mobController.isEnabled = false;
 
 		GameController.GetInstance.StartTimer();
 	}
