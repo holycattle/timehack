@@ -6,16 +6,22 @@ public class MobController : MonoBehaviour {
 	public float moveSpeed;
 	public float rotationSpeed = 180;
 	public bool isAIEnabled = true;
-
+	
+	// Color
+	private Color currentColor;
+	private Transform meshTransform;
+	
 	//
 	private PlayerController player;
 
 	// Explosion Data
-	private float countdownTimer = 0;
+	private float countdownTimer = 5f;
 
 	void Start() {
 		moveSpeed = 1f;
 		player = PlayerController.getPlayerControllerInstance();
+		meshTransform = transform.root.FindChild("Mesh");
+		currentColor = meshTransform.renderer.material.color;
 	}
 
 	void Update() {
@@ -46,7 +52,11 @@ public class MobController : MonoBehaviour {
 
 		Debug.Log("Exploding in..." + timeToExplode);
 	}
-
+	
+	public void ChangeColor() {
+		meshTransform.renderer.material.color = Color.Lerp(currentColor, Color.blue, Mathf.PingPong (Time.time, Constants.POSSESSION_TIME) / Constants.POSSESSION_TIME);
+	}
+	
 	public void Explode() {
 		// Destroy This Object
 
