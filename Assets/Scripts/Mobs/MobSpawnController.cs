@@ -6,9 +6,9 @@ public class MobSpawnController : MonoBehaviour {
 	public GameObject mobPrefab;
 	
 	//number of mobs spawned per wave
-	const int MOB_COUNT = 10;
+	const int MOB_COUNT = 20;
 	const float SPAWN_INTERVAL = 5f;
-	const int RADIUS = 20;
+	const int RADIUS = 10;
 	private float interval = 0f;
 	private PlayerController player;
 	
@@ -17,7 +17,7 @@ public class MobSpawnController : MonoBehaviour {
 		Vector3 pointInCircle;
 		for (int i=0; i < MOB_COUNT; i++) {
 			angle = Random.Range(0, 360);
-			pointInCircle = new Vector3(center.x + radius * Mathf.Sin(angle * Mathf.Deg2Rad), 0, center.z + radius * Mathf.Cos(angle * Mathf.Deg2Rad));
+			pointInCircle = new Vector3(center.x + radius * Mathf.Sin(angle * Mathf.Deg2Rad + 10), 0, center.z + radius * Mathf.Cos(angle * Mathf.Deg2Rad + 10));
 			GameObject g = Instantiate(mobPrefab, pointInCircle, Quaternion.identity) as GameObject;
 //			g.transform.parent = transform;
 //			Debug.Log(g.name);
