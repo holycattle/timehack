@@ -4,14 +4,16 @@ using System.Collections;
 public class MobController : MonoBehaviour {
 
 	public GameObject bombPrefab;
-	public float moveSpeed;
 	public float rotationSpeed = 180;
 	public bool isAIEnabled = true;
-	
+
+	// Stats
+	private float moveSpeed = 1f;
+
 	// Color
 	private Color currentColor;
 	private Transform meshTransform;
-	
+
 	//
 	private PlayerController player;
 
@@ -19,7 +21,6 @@ public class MobController : MonoBehaviour {
 	private float countdownTimer = 0;
 
 	void Start() {
-		moveSpeed = 1f;
 		player = PlayerController.getPlayerControllerInstance();
 		meshTransform = transform.root.FindChild("Mesh");
 		currentColor = meshTransform.renderer.material.color;
@@ -54,11 +55,11 @@ public class MobController : MonoBehaviour {
 		t.Monitor = this;
 		countdownTimer = timeToExplode;
 	}
-	
+
 	public void ChangeColor() {
 		meshTransform.renderer.material.color = Color.Lerp(currentColor, Color.blue, Mathf.PingPong(Time.time, Constants.POSSESSION_TIME) / Constants.POSSESSION_TIME);
 	}
-	
+
 	public void Explode() {
 		// Destroy This Object
 		Destroy(gameObject);
@@ -67,7 +68,22 @@ public class MobController : MonoBehaviour {
 		GameObject g = Instantiate(bombPrefab, transform.position, Quaternion.identity) as GameObject;
 	}
 
+	void OnCollisionEnter(Collision c) {
+		if (!isAIEnabled) {
+			if (c.gameObject.tag == "Mob") {
+				if (player.parentObject == gameObject) {
+					GameController.GetInstance.WasHit();
+				}
+			}
+		}
+	}
+
 	public float Timer {
 		get { return countdownTimer; }
 	}
+
+	public float MoveSpeed {
+		set { moveSpeed = value; }
+	}
+
 }
