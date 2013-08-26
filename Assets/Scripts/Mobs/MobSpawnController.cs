@@ -34,7 +34,7 @@ public class MobSpawnController : MonoBehaviour {
 		if (interval < SPAWN_INTERVAL) {
 			interval += Time.deltaTime;
 		} else {
-			spawnCircular(player.transform.position, RADIUS);
+			spawnCircular(player.parentObject.transform.position, RADIUS);
 			interval = 0;
 		}
 	}

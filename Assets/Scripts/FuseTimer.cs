@@ -11,7 +11,6 @@ public class FuseTimer : MonoBehaviour {
 
 	void Awake() {
 		mat = GetComponent<MeshRenderer>().material;
-		Debug.LogWarning("MatName: " + mat.name);
 	}
 
 	void Start() {

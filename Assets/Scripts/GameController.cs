@@ -5,9 +5,10 @@ public class GameController : MonoBehaviour {
 
 	private static float TEN = 10;
 	private static GameController _singleton;
+	public bool timerPaused = false;
 
 	// Timer
-	protected float timeStart = -1;
+	protected float timerCountdown = -1;
 	protected Material timerMaterial;
 
 	void Awake() {
@@ -16,28 +17,30 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start() {
-		timeStart = Time.time;
+		timerCountdown = Time.time;
 	}
 
 	void Update() {
-		float timePassed = Time.time - timeStart;
-		int currentNumber = (int)Mathf.Min(Mathf.FloorToInt((TEN + 1) - timePassed), TEN);
+		if (timerPaused)
+			return;
+
+		timerCountdown -= Time.deltaTime;
+		int currentNumber = Mathf.CeilToInt(timerCountdown);
 		timerMaterial.mainTextureOffset = new Vector2((TEN - currentNumber) / TEN, timerMaterial.mainTextureOffset.y);
 
-		if (timePassed > TEN) {
-			// Do Something!
+		if (timerCountdown <= 0) {
+			// You Lose!
 			StartTimer();
 		}
 	}
 
 	public void StartTimer() {
-		timeStart = Time.time;
+		timerPaused = false;
+		timerCountdown = TEN;
 	}
 
 	public float TimeRemaining {
-		get {
-			return 10 - (Time.time - timeStart);
-		}
+		get { return timerCountdown; }
 	}
 
 	public static GameController GetInstance {

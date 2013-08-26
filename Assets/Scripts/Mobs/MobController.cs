@@ -16,7 +16,7 @@ public class MobController : MonoBehaviour {
 	private PlayerController player;
 
 	// Explosion Data
-	private float countdownTimer = 5f;
+	private float countdownTimer = 0;
 
 	void Start() {
 		moveSpeed = 1f;
@@ -56,7 +56,7 @@ public class MobController : MonoBehaviour {
 	}
 	
 	public void ChangeColor() {
-		meshTransform.renderer.material.color = Color.Lerp(currentColor, Color.blue, Mathf.PingPong (Time.time, Constants.POSSESSION_TIME) / Constants.POSSESSION_TIME);
+		meshTransform.renderer.material.color = Color.Lerp(currentColor, Color.blue, Mathf.PingPong(Time.time, Constants.POSSESSION_TIME) / Constants.POSSESSION_TIME);
 	}
 	
 	public void Explode() {

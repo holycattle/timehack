@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed = 6;
 	
 	// Possession
-	const float POSSESSION_TIME = 3f;
+	const float POSSESSION_TIME = 1.5f;
 	private float possessionTime = 0;
 	private bool isPossessing = false;
 	private ControllableEntity targetEnemy;
@@ -64,15 +64,23 @@ public class PlayerController : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-				isPossessing = true;
-				targetEnemy = hit.transform.root.GetComponentInChildren<ControllableEntity>();
+				ControllableEntity c = hit.transform.root.GetComponentInChildren<ControllableEntity>();
+				if (c != null) {
+					if (c.GetComponent<MobController>().isAIEnabled) {
+						// Start of Posesssion
+						isPossessing = true;
+						targetEnemy = c;
+
+						GameController.GetInstance.timerPaused = true;
+					}
+				}
 			}
 		}
-		
+
 		if (isPossessing)
 			Possess(targetEnemy);
 	}
-	
+
 	private void Possess(ControllableEntity c) {
 		meshTransform.renderer.material.color = Color.Lerp(currentColor, Color.blue, Mathf.PingPong(Time.time, Constants.POSSESSION_TIME) / Constants.POSSESSION_TIME);
 		if (c != null && c != transform.root.GetComponent<ControllableEntity>()) {
@@ -81,8 +89,14 @@ public class PlayerController : MonoBehaviour {
 		if (possessionTime < POSSESSION_TIME) {
 			possessionTime += Time.deltaTime;
 		} else {
+			// Change to Proper Controller
 			if (c != null && c != transform.root.GetComponent<ControllableEntity>())
 				SetControllingObject(c.gameObject);
+
+			// Reset Color
+//			meshTransform.renderer.material.color = currentColor;
+
+			// Posession Variables
 			possessionTime = 0;
 			isPossessing = false;
 			c = null;
@@ -107,6 +121,8 @@ public class PlayerController : MonoBehaviour {
 		mobController.isAIEnabled = true;
 		mobController = transform.root.GetComponentInChildren<MobController>();
 		mobController.isAIEnabled = false;
+
+		meshTransform = transform.root.FindChild("Mesh");
 
 		// Resets Explosion Timer
 		GameController.GetInstance.StartTimer();
