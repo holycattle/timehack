@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void SetControllingObject(GameObject g) {
 		// Set Fuse of Old Mob
-		MobController mob = g.GetComponentInChildren<MobController>();
-		
+		MobController mob = parentObject.GetComponentInChildren<MobController>();
+		mob.SetFuse(GameController.GetInstance.TimeRemaining);
 
 		// Swap Bodies
 		Vector3 offset = transform.localPosition;

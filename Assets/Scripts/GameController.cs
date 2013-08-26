@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 
 	void Awake() {
 		_singleton = this;
-		timerMaterial = GameObject.Find("_HUDCamera").GetComponentInChildren<MeshRenderer>().material;
+		timerMaterial = GameObject.Find("_HUDCamera").transform.FindChild("SelfCountdownTimer").GetComponent<MeshRenderer>().material;
 	}
 
 	void Start() {
@@ -32,6 +32,12 @@ public class GameController : MonoBehaviour {
 
 	public void StartTimer() {
 		timeStart = Time.time;
+	}
+
+	public float TimeRemaining {
+		get {
+			return 10 - (Time.time - timeStart);
+		}
 	}
 
 	public static GameController GetInstance {

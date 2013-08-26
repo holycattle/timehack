@@ -1,11 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Mobs\MobController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="64" Column="3" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="19" Column="24" />
-      <File FileName="Assets\Scripts\Mobs\MobSpawnController.cs" Line="37" Column="45" />
-      <File FileName="Assets\Scripts\Mobs\MobController.cs" Line="46" Column="33" />
+      <File FileName="Assets\Scripts\Mobs\MobController.cs" Line="59" Column="28" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="8" Column="17" />
+      <File FileName="Assets\Scripts\BombScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TimedDestroy.cs" Line="11" Column="24" />
+      <File FileName="Assets\Scripts\Mobs\MobSpawnController.cs" Line="37" Column="53" />
+      <File FileName="Assets\Scripts\FuseTimer.cs" Line="19" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

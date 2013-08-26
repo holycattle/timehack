@@ -29,10 +29,12 @@ public class BombScript : MonoBehaviour {
 		for (int i = 0; i < mobs.Length; i++) {
 			if (Vector3.Distance(transform.position, mobs[i].transform.position) <= explosionRadius) {
 				MobController m = mobs[i].GetComponent<MobController>();
+
 				m.BlownAway();
 				mobs[i].rigidbody.AddExplosionForce(400f, transform.position, explosionRadius);
 
-				Debug.DrawRay(mobs[i].transform.position, Vector3.up, Color.red, 5f);
+				TimedDestroy t = mobs[i].AddComponent<TimedDestroy>();
+				t.destroyTime = explosionLength;
 			}
 		}
 	}

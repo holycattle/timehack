@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MobController : MonoBehaviour {
 
+	public GameObject bombPrefab;
 	public float moveSpeed;
 	public float rotationSpeed = 180;
 	public bool isAIEnabled = true;
@@ -42,15 +43,21 @@ public class MobController : MonoBehaviour {
 	}
 
 	public void SetFuse(float timeToExplode) {
+		FuseTimer t = HUDCameraScript.Instance.mobTimer;
+		t.IsActive = true;
+		t.Monitor = this;
 		countdownTimer = timeToExplode;
-
-		Debug.Log("Exploding in..." + timeToExplode);
 	}
 
 	public void Explode() {
 		// Destroy This Object
+		Destroy(gameObject);
 
 		// Instantiate Explosion Stuff
+		GameObject g = Instantiate(bombPrefab, transform.position, Quaternion.identity) as GameObject;
+	}
 
+	public float Timer {
+		get { return countdownTimer; }
 	}
 }
